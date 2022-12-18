@@ -15,15 +15,18 @@ static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#005577";
 static char selbgcolor[]            = "#005577";
-
+/* added urgent colr border manually */
+static const char urgbordercolor[]  = "#ff0000";
 /* use pywal to set colors*/
 #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
 
-//static char *colors[][3] = {
+static char *colors[][3] = {
        /*               fg           bg           border   */
-//       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-//       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-//};
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+// added urgent array scheme
+       [SchemeUrg]  = { selfgcolor,  selbgcolor,  selurgbordercolor },
+       };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
