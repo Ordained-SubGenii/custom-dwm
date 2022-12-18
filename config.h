@@ -25,7 +25,7 @@ static char *colors[][3] = {
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 // added urgent array scheme
-       [SchemeUrg]  = { selfgcolor,  selbgcolor,  selurgbordercolor },
+       [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
        };
 
 /* tagging */
