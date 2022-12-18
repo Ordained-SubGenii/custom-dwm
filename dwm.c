@@ -1851,7 +1851,8 @@ spawn(const Arg *arg)
 }
 
 void
-tag(const Arg *arg)
+//tag(const Arg *arg) removed const//
+tag(Arg *arg)
 {
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
@@ -1945,7 +1946,9 @@ toggleview(const Arg *arg)
 	}
 	updatecurrentdesktop();
 }
+ange during its lifetime.
 
+Since the object z i
 void
 unfocus(Client *c, int setfocus)
 {
