@@ -237,8 +237,7 @@ static void showhide(Client *c);
 static void sigchld(int unused);
 static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
-//static void tag(const Arg *arg);
-static void tag(Arg *arg);
+static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
@@ -1852,8 +1851,7 @@ spawn(const Arg *arg)
 }
 
 void
-//tag(const Arg *arg) removed const//
-tag(Arg *arg)
+tag(const Arg *arg)
 {
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
