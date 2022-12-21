@@ -4,7 +4,7 @@
 static unsigned int borderpx  = 1;        /* border pixel of windows */
 static unsigned int gappx     = 5;        /* gaps between windows */
 static unsigned int snap      = 32;       /* snap pixel */
-static int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=12" };
@@ -38,7 +38,7 @@ static const Rule rules[] = {
 	 */
 	/* class      		instance    title           tags mask     isfloating   monitor */
 	{ "Gimp",     		NULL,       NULL,           0,            1,           -1 },
-	{ "Firefox",  		NULL,       NULL,           1 << 8,       0,           -1 },
+	{ "Firefox",  		NULL,       NULL,           2 << 8,       0,           -1 },
 	{ "Xfce4-terminal",     NULL,       NULL,           0,            0,           -1 },
 	{ NULL,                 NULL,      "Event Tester",  0,            0,           -1 }, /* xev */
 };
@@ -77,6 +77,9 @@ static const char *roficmd[] = { "rofi", "-modi", "drun", "-show", "drun", "-con
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -84,6 +87,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask, 		XK_f,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,  		XK_t, 	   spawn,          {.v = filemgrcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd } }, 
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -126,7 +130,7 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		{.v = (const char*[]){ "xbacklight", "-dec", "5", NULL } } },
 };
 
- /* Xresources preferences to load at startup */
+/* Xresources preferences to load at startup*/
 ResourcePref resources[] = {
 		{ "normbgcolor",        STRING,  &normbgcolor },
 		{ "normbordercolor",    STRING,  &normbordercolor },

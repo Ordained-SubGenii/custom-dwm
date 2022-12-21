@@ -7,7 +7,7 @@ static unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = { "monospace:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -15,11 +15,18 @@ static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#005577";
 static char selbgcolor[]            = "#005577";
-static char *colors[][3] = {
+/* added urgent colr border manually */
+//static char urgbordercolor[]  = "#ff0000";
+/* use pywal to set colors*/
+#include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
+
+//static char *colors[][3] = {
        /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-};
+ //      [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+ //      [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+// added urgent array scheme
+ //      [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
+ //      };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
