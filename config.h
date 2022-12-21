@@ -7,7 +7,7 @@ static unsigned int snap      = 32;       /* snap pixel */
 static int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = { "monospace:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -16,7 +16,7 @@ static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#005577";
 static char selbgcolor[]            = "#005577";
 /* added urgent colr border manually */
-static char urgbordercolor[]  = "#ff0000";
+//static char urgbordercolor[]  = "#ff0000";
 /* use pywal to set colors*/
 #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
 
