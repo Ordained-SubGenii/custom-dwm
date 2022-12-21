@@ -1979,9 +1979,7 @@ toggleview(const Arg *arg)
 	}
 	updatecurrentdesktop();
 }
-ange during its lifetime.
 
-Since the object z i
 void
 unfocus(Client *c, int setfocus)
 {
