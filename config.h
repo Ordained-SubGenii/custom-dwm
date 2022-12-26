@@ -1,8 +1,4 @@
 /* See LICENSE file for copyright and license details. */
-/* constants for easy reference */
-#define TERMINAL "xfce4-terminal"
-#define BROWSER "firefox"
-#define TERMCLASS "Xfce4-terminal"
 #define STATUSBAR "dwmblocks" /* statusbar */
 
 /* appearance */
@@ -41,8 +37,8 @@ static const Rule rules[] = {
 */	 
   /* class      		instance    title           tags mask     isfloating   monitor */
   { "Gimp",     		  NULL,       NULL,           0,            1,           -1 },
-  { "BROWSER",  		  NULL,       NULL,           2 << 8,       0,           -1 },
-  { "TERMCLASS",      NULL,       NULL,           0,            0,           -1 },
+  { "firefox",  		  NULL,       NULL,           2 << 8,       0,           -1 },
+  { "Xfce4-terminal",      NULL,       NULL,           0,            0,           -1 },
   { NULL,             NULL,      "Event Tester",  0,            0,           -1 }, /* xev */
 };
 
@@ -77,8 +73,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *roficmd[] = { "rofi", "-modi", "drun", "-show", "drun", "-config", "/home/feindsdeluna/.config/rofi/rofidemenu.rasi", NULL };
-static const char *termcmd[]  = { "TERMINAL", NULL };
-static const char *browsercmd[] = { "BROWSER", NULL };
+static const char *termcmd[]  = { "xfce4-terminal", NULL };
+static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
