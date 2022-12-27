@@ -1,45 +1,46 @@
 /* See LICENSE file for copyright and license details. */
-#define STATUSBAR "dwmblocks" /* statusbar */
 
 /* appearance */
 static unsigned int borderpx  = 1;        /* border pixel of windows */
 static unsigned int gappx     = 5;        /* gaps between windows */
 static unsigned int snap      = 32;       /* snap pixel */
-static int swallowfloating = 0;     /* 1 means swallow floating window */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static char *fonts[]          = { "monospace:size=12" };
-static char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "monospace:size=12" };
+static const char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#005577";
 static char selbgcolor[]            = "#005577";
-static char urgbordercolor[]  = "#ff0000";  /* added urgent colr border manually */
-/* use pywal to set colors */
+/* added urgent colr border manually */
+//static char urgbordercolor[]  = "#ff0000";
+/* use pywal to set colors*/
 #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
 
-/* static char *colors[][3] = {
-      *                     fg           bg           border   
-      * [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-      * [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-      * [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },  // added urgent array scheme 
-       }; */
+//static char *colors[][3] = {
+       /*               fg           bg           border   */
+ //      [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+ //      [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+// added urgent array scheme
+ //      [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
+ //      };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-/* xprop(1):
+	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
-*/	 
-  /* class      		instance    title           tags mask     isfloating   monitor */
-  { "Gimp",     		  NULL,       NULL,           0,            1,           -1 },
-  { "firefox",  		  NULL,       NULL,           0 << 1,       0,           -1 },
-  { "Xfce4-terminal",      NULL,       NULL,           0,            0,           -1 },
-  { NULL,             NULL,      "Event Tester",  0,            0,           -1 }, /* xev */
+	 */
+	/* class      		instance    title           tags mask   isfloating   isterminal  noswallow    monitor */
+	{ "Gimp",     		  NULL,       NULL,           0,          1,           0,          0,             -1 },
+	{ "Firefox",  		  NULL,       NULL,           1 << 8,     0,           0,         -1,             -1 },
+	{ "Xfce4-terminal", NULL,       NULL,           0,          0,           1,          0,             -1 },
+	{ NULL,             NULL,      "Event Tester",  0,          0,           0,          1,             -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -57,17 +58,17 @@ static const Layout layouts[] = {
 
 /* key definitions */ 
 #define MODKEY Mod4Mask
-#define TAGKEYS(KEY, TAG) \
+#define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]) { "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-//  #include <X11/XF86keysym.h>
-//  #define STATUSBAR "dwmblocks"
+#include <X11/XF86keysym.h>
+#define STATUSBAR "dwmblocks"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -79,14 +80,13 @@ static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
-#include <X11/XF86keysym.h>
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask, 		XK_f,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,  		XK_t, 	   spawn,          {.v = filemgrcmd } },
-	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd } }, 
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -112,15 +112,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-  TAGKEYS(XK_1, 0)
-	TAGKEYS(XK_2, 1)
-	TAGKEYS(XK_3, 2)
-	TAGKEYS(XK_4, 3)
-	TAGKEYS(XK_5, 4)
-	TAGKEYS(XK_6, 5)
-	TAGKEYS(XK_7, 6)
-	TAGKEYS(XK_8, 7)
-	TAGKEYS(XK_9, 8)
+	TAGKEYS(                        XK_1,                      0)
+	TAGKEYS(                        XK_2,                      1)
+	TAGKEYS(                        XK_3,                      2)
+	TAGKEYS(                        XK_4,                      3)
+	TAGKEYS(                        XK_5,                      4)
+	TAGKEYS(                        XK_6,                      5)
+	TAGKEYS(                        XK_7,                      6)
+	TAGKEYS(                        XK_8,                      7)
+	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
         { 0,				XK_Print,	spawn,		SHCMD("scrot ~/Pictures/Screenshot-$(date +%F_%T).png") },
 	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof dwmblocks)") },
@@ -130,12 +130,11 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		{.v = (const char*[]){ "xbacklight", "-dec", "5", NULL } } },
 };
 
-/* Xresources preferences to load at startup */
+/* Xresources preferences to load at startup*/
 ResourcePref resources[] = {
 		{ "normbgcolor",        STRING,  &normbgcolor },
 		{ "normbordercolor",    STRING,  &normbordercolor },
 		{ "normfgcolor",        STRING,  &normfgcolor },
-    { "urgbordercolor",     STRING,  &urgbordercolor },
 		{ "selbgcolor",         STRING,  &selbgcolor },
 		{ "selbordercolor",     STRING,  &selbordercolor },
 		{ "selfgcolor",         STRING,  &selfgcolor },
@@ -168,37 +167,44 @@ static Button buttons[] = {
 };
 
 void
-setlayoutex(const Arg *arg) {
+setlayoutex(const Arg *arg)
+{
 	setlayout(&((Arg) { .v = &layouts[arg->i] }));
 }
 
 void
-viewex(const Arg *arg) {
+viewex(const Arg *arg)
+{
 	view(&((Arg) { .ui = 1 << arg->ui }));
 }
 
 void
-viewall(const Arg *arg) {
+viewall(const Arg *arg)
+{
 	view(&((Arg){.ui = ~0}));
 }
 
 void
-toggleviewex(const Arg *arg) {
-  toggleview(&((Arg) { .ui = 1 << arg->ui }));
+toggleviewex(const Arg *arg)
+{
+	toggleview(&((Arg) { .ui = 1 << arg->ui }));
 }
 
 void
-tagex(const Arg *arg) {
+tagex(const Arg *arg)
+{
 	tag(&((Arg) { .ui = 1 << arg->ui }));
 }
 
 void
-toggletagex(const Arg *arg) {
+toggletagex(const Arg *arg)
+{
 	toggletag(&((Arg) { .ui = 1 << arg->ui }));
 }
 
 void
-tagall(const Arg *arg) {
+tagall(const Arg *arg)
+{
 	tag(&((Arg){.ui = ~0}));
 }
 
