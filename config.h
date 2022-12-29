@@ -12,9 +12,9 @@ static const char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
+static char selfgcolor[]            = "#00FFFF";
 static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
+static char selbgcolor[]            = "#9932CC";
 /* added urgent colr border manually */
 //static char urgbordercolor[]  = "#ff0000";
 /* use pywal to set colors*/
