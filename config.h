@@ -16,19 +16,20 @@ static char selfgcolor[]            = "#00FFFF";
 static char selbordercolor[]        = "#8A2BE2";
 static char selbgcolor[]            = "#8A2BE2";
 /* added urgent colr border manually */
-//static char urgbordercolor[]  = "#ff0000";
-/* use pywal to set colors*/
+static char urgbordercolor[]  = "#ff0000";
+
+/* use pywal to set colors */
 #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
+  
+static char *colors[][3] = {
+   /*               fg           bg           border   */
+  [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+  [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+/* added urgent array scheme */
+  [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
+};   
 
-//static char *colors[][3] = {
-       /*               fg           bg           border   */
- //      [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
- //      [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-// added urgent array scheme
- //      [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
- //      };
-
-/* tagging */
+  /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
@@ -73,7 +74,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *roficmd[] = { "rofi", "-show", "drun", "-config", "/home/feindsdeluna/.config/rofi/rofidemenu.rasi", NULL };
+static char drun[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *roficmd[] = { "rofi", "-show", drun, "-config", "/home/feindsdeluna/.config/rofi/rofidemenu.rasi", NULL };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
