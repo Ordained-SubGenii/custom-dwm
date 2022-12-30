@@ -74,9 +74,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static char rofiman[2] = "drun"; /* component of dmenucmd, manipulated in spawn() */
-static char roficonf[1] = "/home/feindsdeluna/.config/rofi/rofidmenu.rasi";
-static const char *roficmd[] = { "rofi", "-show", rofiman, "-config", roficonf, NULL };
+static const char *roficmd[] = { "rofi", "-show drun -config '/home/feindsdeluna/.config/rofi/rofidmenu.rasi'", NULL };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
