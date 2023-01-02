@@ -68,7 +68,6 @@ static const Layout layouts[] = {
 
 #include <X11/XF86keysym.h>
 #define STATUSBAR "dwmblocks"
-#define killdwmblks { .v = (const char*[]){"/usr/bin/kill", "-39", "$(pidof dwmblocks)", NULL } }  /*added but not sure correct or necessary */
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -78,6 +77,7 @@ static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char *pavuctrlcmd[] = { "pavucontrol", NULL };
+static const char *killdwmblks[] = { "kill", "-39", "$(pidof dwmblocks)", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
@@ -89,7 +89,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,  		        XK_t, 	   spawn,          {.v = filemgrcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
-  { MODKEY|ShiftMask,             XK_p       spawn,          {.v = pavuctrlcmd} },
+  { MODKEY|ShiftMask,             XK_p       spawn,          {.v = pavuctrlcmd } },
   { MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -100,7 +100,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },  /* chgd from MODKEY|ShiftMask XK_c to MODKEY XK_q */
-  { MODKEY|ShiftMask,             XK_b,       killdwmblks,     {0} },  /* added to manually kill/update dwmblocks but not sure function is correct */
+  { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblks } },  /* added but not sure correct or necessary */
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
