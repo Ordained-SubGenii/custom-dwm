@@ -77,7 +77,7 @@ static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char *pavuctrlcmd[] = { "pavucontrol", NULL };
-static const char *killdwmblks[] = { "kill", "-39", "$(pidof dwmblocks)", NULL };
+static const char *killdwmblkscmd[3] = { "kill", "-39", "$(pidof dwmblocks)", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
@@ -89,7 +89,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,  		        XK_t, 	   spawn,          {.v = filemgrcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
-  { MODKEY|ShiftMask,             XK_p       spawn,          {.v = pavuctrlcmd } },
+  { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pavuctrlcmd } },
   { MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -100,7 +100,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },  /* chgd from MODKEY|ShiftMask XK_c to MODKEY XK_q */
-  { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblks } },  /* added but not sure correct or necessary */
+  { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } },  /* added but not sure correct or necessary */
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -142,7 +142,7 @@ ResourcePref resources[] = {
 		{ "selbgcolor",         STRING,  &selbgcolor },
 		{ "selbordercolor",     STRING,  &selbordercolor },
 		{ "selfgcolor",         STRING,  &selfgcolor },
-		{ "urgbordercolor"      STRING,  &urgbordercolor },  /* added but may not be necessary */
+		{ "urgbordercolor",     STRING,  &urgbordercolor },  /* added but may not be necessary */
     { "borderpx",          	INTEGER, &borderpx },
 		{ "snap",          		  INTEGER, &snap },
 		{ "showbar",          	INTEGER, &showbar },
@@ -240,5 +240,4 @@ static Signal signals[] = {
 	{ "quit",           quit },
 	{ "setlayout",      setlayout },
 	{ "setlayoutex",    setlayoutex },
-  { "killdwmblks",    killdwmblks }, /* added but may not be necessary */
 };
