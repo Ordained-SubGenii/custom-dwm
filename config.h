@@ -77,7 +77,7 @@ static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char *pavuctrlcmd[] = { "pavucontrol", NULL };
-static const char *killdwmblkscmd[4] = { "kill", "-39", "$(pidof dwmblocks)", NULL };
+static const char *killdwmblkscmd[4] = { "kill", "-10", "$(pidof dwmblocks)", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
