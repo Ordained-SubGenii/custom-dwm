@@ -247,13 +247,15 @@ static void showhide(Client *c);
 static void sigchld(int unused);
 static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
-static void tag(const Arg *arg);
+/* chgd tag from tag(const Arg *arg) to Arg*arg */
+static void tag(Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void togglescratch(const Arg *arg);
-static void toggletag(const Arg *arg);
+/* chgd tag from toggletag(const Arg *arg) to Arg*arg */
+static void toggletag(Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
@@ -1940,7 +1942,8 @@ spawn(const Arg *arg)
 }
 
 void
-tag(const Arg *arg)
+/*  chgd tag(const Arg *arg) to (Arg *arg) */
+tag(Arg *arg)
 {
 	if (selmon->sel && arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
@@ -2029,6 +2032,7 @@ togglescratch(const Arg *arg)
 }
 
 void
+/* chgd (const Arg *arg) to (Arg *arg) */
 toggletag(const Arg *arg)
 {
 	unsigned int newtags;
