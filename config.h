@@ -18,15 +18,21 @@ static char selbgcolor[]            = "#8A2BE2";
 static char urgbordercolor[]  = "#ff0000"; /* added urgent colr border manually */
 
 /* use pywal to set colors */
-#include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
-/* commented out to use pywal include generated color variables */
- /* static char *colors[][3] = {
- *                 fg           bg           border
- *  [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
- *  [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
- *  [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
-}; */
+#define wal "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
 
+#if __has_include(wal)
+#include wal 
+/*  #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h" */
+
+/* commented out to use pywal include generated color variables */
+#else 
+static char *colors[][3] = {
+ /*                 fg           bg           border  */
+   [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+   [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+   [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
+}; 
+#endif
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
