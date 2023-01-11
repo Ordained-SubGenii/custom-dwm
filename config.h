@@ -9,6 +9,12 @@ static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
+
+/*  Chg to use if statement for include of pywal */
+#define pywal "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
+#if __has_include(pywal)
+#include pywal
+#else
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -18,14 +24,15 @@ static char selbgcolor[]            = "#8A2BE2";
 static char urgbordercolor[]  = "#ff0000"; /* added urgent colr border manually */
 
 /* use pywal to set colors */
-#include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
+/*  #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h" */
 /* commented out to use pywal include generated color variables */
- /* static char *colors[][3] = {
- *                 fg           bg           border
- *  [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
- *  [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
- *  [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
-}; */
+static char *colors[3] = {
+ /*                 fg           bg           border */
+   [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+   [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+   [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
+}; 
+#endif 
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
