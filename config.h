@@ -44,7 +44,7 @@ static const Rule rules[] = {
 	/* class      		instance    title           tags mask   isfloating   isterminal  noswallow    monitor */
 	{ "Gimp",     		  NULL,       NULL,           0,          1,           0,          0,             -1 },
 	{ "Firefox",  		  NULL,       NULL,           1 << 7,     0,           0,         -1,             -1 },
-	{ "Xfce4-terminal", NULL,       NULL,           0,          0,           1,          0,             -1 },
+	{ "Alacritty", NULL,       NULL,           0,          0,           1,          0,             -1 },  /*  chgd from Xfce4-terminal */
 	{ NULL,             NULL,      "Event Tester",  0,          0,           0,          1,             -1 }, /* xev */
 };
 
@@ -79,7 +79,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *roficmd[6] = { "rofi", "-show", "drun", "-config", "/home/feindsdeluna/.config/rofi/rofidmenu.rasi", NULL };
-static const char *termcmd[]  = { "xfce4-terminal", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };  /*  chgd from xfce4-terminal */
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char *pavuctrlcmd[] = { "pavucontrol", NULL };
