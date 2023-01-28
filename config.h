@@ -21,17 +21,17 @@ static char urgbordercolor[]  = "#ff0000"; /* added urgent colr border manually 
 #define wal "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
 
 #if __has_include(wal)
-#include wal 
+#include wal
 /*  #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h" */
 
 /* commented out to use pywal include generated color variables */
-#else 
+#else
 static char *colors[][3] = {
- /*                 fg           bg           border  */
-   [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-   [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-   [SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
-}; 
+	/*                 fg           bg           border  */
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+	[SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
+};
 #endif
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -42,8 +42,8 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      		instance    title           tags mask   isfloating   isterminal  noswallow    monitor */
-	{ "Gimp",     		  NULL,       NULL,           0,          1,           0,          0,             -1 },
-	{ "Firefox",  		  NULL,       NULL,           1 << 7,     0,           0,         -1,             -1 },
+	{ "Gimp",                 NULL,       NULL,           0,          1,           0,          0,             -1 },
+	{ "Firefox",              NULL,       NULL,           1 << 7,     0,           0,         -1,             -1 },
 	{ "Alacritty", NULL,       NULL,           0,          0,           1,          0,             -1 },  /*  chgd from Xfce4-terminal */
 	{ NULL,             NULL,      "Event Tester",  0,          0,           0,          1,             -1 }, /* xev */
 };
@@ -91,12 +91,12 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask, 		        XK_f,      spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,  		        XK_t, 	   spawn,          {.v = filemgrcmd } },
+	{ MODKEY|ShiftMask,                     XK_f,      spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,                     XK_t,      spawn,          {.v = filemgrcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
-  { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pavuctrlcmd } },
-  { MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pavuctrlcmd } },
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -106,8 +106,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },  /* chgd from MODKEY|ShiftMask XK_c to MODKEY XK_q */
-  { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } },  /* added but not sure correct or necessary */
-  { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } },/* added but not sure correct or necessary */
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
@@ -130,32 +130,34 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_Delete,  quit,         {0} },  /* chgd from XK_q to *_Delete */
-  /* single Xkey keybindings for volume, print, brightness, etc */
-  { 0, XK_Print,	                spawn,    SHCMD("scrot ~/Pictures/Screenshot-$(date +%F_%T).png") },
-	{ 0, XF86XK_AudioRaiseVolume,	  spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioLowerVolume,	  spawn,		SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute; kill -39 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioMute, 		      spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof dwmblocks)") },
-	{ 0, XF86XK_MonBrightnessUp,	  spawn,		{.v = (const char*[]){ "xbacklight", "-inc", "5", NULL } } },
-	{ 0, XF86XK_MonBrightnessDown,	spawn,		{.v = (const char*[]){ "xbacklight", "-dec", "5", NULL } } },
+	{
+		MODKEY|ShiftMask,             XK_Delete,  quit,         {0}
+	},                                                                /* chgd from XK_q to *_Delete */
+	/* single Xkey keybindings for volume, print, brightness, etc */
+	{ 0, XK_Print,                        spawn,    SHCMD("scrot ~/Pictures/Screenshot-$(date +%F_%T).png") },
+	{ 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute; kill -39 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof dwmblocks)") },
+	{ 0, XF86XK_MonBrightnessUp,      spawn,                {.v = (const char*[]){ "xbacklight", "-inc", "5", NULL } } },
+	{ 0, XF86XK_MonBrightnessDown,  spawn,          {.v = (const char*[]){ "xbacklight", "-dec", "5", NULL } } },
 };
 
 /* Xresources preferences to load at startup*/
 ResourcePref resources[] = {
-		{ "normbgcolor",        STRING,  &normbgcolor },
-		{ "normbordercolor",    STRING,  &normbordercolor },
-		{ "normfgcolor",        STRING,  &normfgcolor },
-		{ "selbgcolor",         STRING,  &selbgcolor },
-		{ "selbordercolor",     STRING,  &selbordercolor },
-		{ "selfgcolor",         STRING,  &selfgcolor },
-		{ "urgbordercolor",     STRING,  &urgbordercolor },  /* added but may not be necessary */
-    { "borderpx",          	INTEGER, &borderpx },
-		{ "snap",          		  INTEGER, &snap },
-		{ "showbar",          	INTEGER, &showbar },
-		{ "topbar",          	  INTEGER, &topbar },
-		{ "nmaster",          	INTEGER, &nmaster },
-		{ "resizehints",       	INTEGER, &resizehints },
-		{ "mfact",      	 	    FLOAT,   &mfact },
+	{ "normbgcolor",        STRING,  &normbgcolor },
+	{ "normbordercolor",    STRING,  &normbordercolor },
+	{ "normfgcolor",        STRING,  &normfgcolor },
+	{ "selbgcolor",         STRING,  &selbgcolor },
+	{ "selbordercolor",     STRING,  &selbordercolor },
+	{ "selfgcolor",         STRING,  &selfgcolor },
+	{ "urgbordercolor",     STRING,  &urgbordercolor },          /* added but may not be necessary */
+	{ "borderpx",               INTEGER, &borderpx },
+	{ "snap",                         INTEGER, &snap },
+	{ "showbar",            INTEGER, &showbar },
+	{ "topbar",               INTEGER, &topbar },
+	{ "nmaster",            INTEGER, &nmaster },
+	{ "resizehints",        INTEGER, &resizehints },
+	{ "mfact",                          FLOAT,   &mfact },
 };
 
 /* button definitions */
