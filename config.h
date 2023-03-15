@@ -18,7 +18,7 @@ static char selbgcolor[]            = "#8A2BE2";
 static char urgbordercolor[]  = "#ff0000"; /* added urgent colr border manually */
 
 /* use pywal to set colors */
-#define wal "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h"
+#define wal "$HOME/.cache/wal/colors-wal-dwm.h"
 
 #if __has_include(wal)
 #include wal
