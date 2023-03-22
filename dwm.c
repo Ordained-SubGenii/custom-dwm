@@ -2029,6 +2029,7 @@ togglescratch(const Arg *arg)
 }
 
 void
+/* chgd (const Arg *arg) to (Arg *arg) */
 toggletag(const Arg *arg)
 {
 	unsigned int newtags;

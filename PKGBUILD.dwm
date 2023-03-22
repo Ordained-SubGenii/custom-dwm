@@ -1,0 +1,48 @@
+# Maintainer: Ordained-SubGenii 
+pkgname=custom-dwm-git
+pkgver=6.4.r152.g95896c2
+pkgrel=1
+pkgdesc='A dynamic window manager for X custom github build'
+url='https://github.com/Ordained-SubGenii/custom-dwm' 
+arch=('x86_64')
+license=('MIT')
+depends=('libx11' 'libxinerama' 'libxft')
+makedepends=('git')
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}" 'dwm')
+source=("git+https://github.com/Ordained-SubGenii/custom-dwm")
+sha256sums=('SKIP')
+_sourcedir="${pkgname%-git}"
+
+pkgver() {
+  cd "$srcdir/${pkgname%-git}"
+	printf "%s" "$(git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g')"
+}
+
+prepare() {
+  if [ -e "$BUILDDIR/config.h" ]
+  then
+    cp "$BUILDDIR/config.h" "$_sourcedir"
+  elif [ ! -e "$BUILDDIR/config.def.h" ]
+  then
+    msg='This package can be configured in config.h. Copy the config.def.h '
+    msg+='that was just placed into the package directory to config.h and '
+    msg+='modify it to change the configuration. Or just leave it alone to '
+    msg+='continue to use default values.'
+    warning "$msg"
+  fi
+  cp "$_sourcedir/config.def.h" "$BUILDDIR"
+}
+
+build() {
+  cd "$srcdir/${pkgname%-git}"
+  make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+  cd "$srcdir/${pkgname%-git}"
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+  install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -m644 -D README "$pkgdir/usr/share/doc/$pkgname/README"
+  install -m644 -D dwm.desktop "$pkgdir/usr/share/xsessions/dwm.desktop"
+}
