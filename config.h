@@ -73,7 +73,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 #include <X11/XF86keysym.h>
-#define STATUSBAR "dwmblocks"
+#define STATUSBAR "/usr/local/bin/dwmblocks"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
