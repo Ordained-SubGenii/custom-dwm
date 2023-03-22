@@ -78,12 +78,12 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *roficmd[6] = { "rofi", "-show", "drun", "-config", "/home/feindsdeluna/.config/rofi/rofidmenu.rasi", NULL };
+static const char *roficmd[6] = { "rofi", "-show", "drun", "-config", "$HOME/.config/rofi/rofidmenu.rasi", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };  /*  chgd from xfce4-terminal */
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char *pavuctrlcmd[] = { "pavucontrol", NULL };
-static const char *killdwmblkscmd[4] = { "pkill", "-SIGUSR1", "dwmblocks", NULL };
+/*  static const char *killdwmblkscmd[4] = { "pkill", "-SIGUSR1", "dwmblocks", NULL }; */ 
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
@@ -106,7 +106,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },  /* chgd from MODKEY|ShiftMask XK_c to MODKEY XK_q */
-	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } },/* added but not sure correct or necessary */
+	/*  { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } }, */ /* added but not sure correct or necessary */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -135,9 +135,12 @@ static Key keys[] = {
 	},                                                                /* chgd from XK_q to *_Delete */
 	/* single Xkey keybindings for volume, print, brightness, etc */
 	{ 0, XK_Print,                        spawn,    SHCMD("scrot ~/Pictures/Screenshot-$(date +%F_%T).png") },
-	{ 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute; kill -39 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof dwmblocks)") },
+	/*  { 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof dwmblocks)") },  */
+	{ 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute") },
+/*	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute; kill -39 $(pidof dwmblocks)") },  */
+	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute") },  
+	/*  { 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof dwmblocks)") },  */
+	{ 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") },
 	{ 0, XF86XK_MonBrightnessUp,      spawn,                {.v = (const char*[]){ "xbacklight", "-inc", "5", NULL } } },
 	{ 0, XF86XK_MonBrightnessDown,  spawn,          {.v = (const char*[]){ "xbacklight", "-dec", "5", NULL } } },
 };
