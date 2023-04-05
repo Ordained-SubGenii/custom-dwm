@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+/* Custom defined config for LASANGRE USER.  */
 /* appearance */
 static unsigned int borderpx  = 1;        /* border pixel of windows */
 static unsigned int gappx     = 5;        /* gaps between windows */
@@ -9,30 +9,27 @@ static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#00FFFF";
-static char selbordercolor[]        = "#8A2BE2";
-static char selbgcolor[]            = "#8A2BE2";
-static char urgbordercolor[]  = "#ff0000"; /* added urgent colr border manually */
-
 /* use pywal to set colors */
-#define wal "$HOME/.cache/wal/colors-wal-dwm.h"
-
-#if __has_include(wal)
+#ifndef wal  
+#define wal "/home/lasangre/.cache/wal/colors-wal-dwm_alt.h"
 #include wal
-/*  #include "/home/feindsdeluna/.cache/wal/colors-wal-dwm.h" */
-
-/* commented out to use pywal include generated color variables */
-#else
+/*  #include "/home/lasangre/.cache/wal/colors-wal-dwm_alt.h" */
+#else /*  use following declarations */ 
+static char normbgcolor[]           = "#222222"; /* black */
+static char normbordercolor[]       = "#444444"; /* charcoal */ 
+static char normfgcolor[]           = "#bbbbbb"; /* grey */
+static char selfgcolor[]            = "#00FFFF"; /* turquoise */
+static char selbordercolor[]        = "#8A2BE2"; /*  purple */
+static char selbgcolor[]            = "#8A2BE2"; /* purple */
+static char urgbordercolor[]  = "#ff0000"; /* added urgent colr border manually...hexclr red */
 static char *colors[][3] = {
-	/*                 fg           bg           border  */
-	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-	[SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },
-};
-#endif
+    /*                fg           bg           border  */
+	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor }, 
+	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  }, 
+	[SchemeUrg]  = { selfgcolor,  selbgcolor,  urgbordercolor },  
+};   
+#endif 
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -61,7 +58,10 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
+#define STATUSBAR "dwmblocks"
+
 /* key definitions */
+#include <X11/XF86keysym.h>
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -69,21 +69,19 @@ static const Layout layouts[] = {
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
+/* #define STATUSBAR "dwmblocks" */
+
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
-#include <X11/XF86keysym.h>
-#define STATUSBAR "dwmblocks"
-
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *roficmd[6] = { "rofi", "-show", "drun", "-config", "$HOME/.config/rofi/rofidmenu.rasi", NULL };
+static const char *roficmd[6] = { "rofi", "-show", "drun", "-config", "/home/lasangre/.config/rofi/arc_dark_colors.rasi", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };  /*  chgd from xfce4-terminal */
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemgrcmd[] = { "Thunar", NULL };
 static const char *pavuctrlcmd[] = { "pavucontrol", NULL };
-/*  static const char *killdwmblkscmd[4] = { "pkill", "-SIGUSR1", "dwmblocks", NULL }; */ 
+static const char *killdwmblkscmd[4] = { "pkill", "-SIGUSR1", "mblocks", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
@@ -106,7 +104,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },  /* chgd from MODKEY|ShiftMask XK_c to MODKEY XK_q */
-	/*  { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } }, */ /* added but not sure correct or necessary */
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = killdwmblkscmd } },/* added but not sure correct or necessary */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -135,12 +133,9 @@ static Key keys[] = {
 	},                                                                /* chgd from XK_q to *_Delete */
 	/* single Xkey keybindings for volume, print, brightness, etc */
 	{ 0, XK_Print,                        spawn,    SHCMD("scrot ~/Pictures/Screenshot-$(date +%F_%T).png") },
-	/*  { 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof dwmblocks)") },  */
-	{ 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute") },
-/*	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute; kill -39 $(pidof dwmblocks)") },  */
-	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute") },  
-	/*  { 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof dwmblocks)") },  */
-	{ 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") },
+	{ 0, XF86XK_AudioRaiseVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ unmute; kill -39 $(pidof mblocks)") },
+	{ 0, XF86XK_AudioLowerVolume,     spawn,                SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02- unmute; kill -39 $(pidof mblocks)") },
+	{ 0, XF86XK_AudioMute,                spawn,    SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -39 $(pidof mblocks)") },
 	{ 0, XF86XK_MonBrightnessUp,      spawn,                {.v = (const char*[]){ "xbacklight", "-inc", "5", NULL } } },
 	{ 0, XF86XK_MonBrightnessDown,  spawn,          {.v = (const char*[]){ "xbacklight", "-dec", "5", NULL } } },
 };
